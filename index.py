@@ -1,6 +1,7 @@
 import discord
 import asyncio
 import datetime
+import json
 
 client = discord.Client()
 prefix = "%"
@@ -37,8 +38,13 @@ async def on_message(message):
         embed.add_field(name= "Status", value= str(message.author.status), inline=False)
         embed.add_field(name= "Playing to", value= str(message.author.game), inline=False)
         embed.set_footer(text= Timestamp, icon_url= message.channel.server.icon_url )
-        await client.send_message(message.channel, embed=embed)     
-    elif message.content == prefix + "github":
-        await client.send_message(message.channel, "")
+        await client.send_message(message.channel, embed=embed)
         
-client.run("")
+    elif message.content == prefix + "github":
+        await client.send_message(message.channel, "https://github.com/Tusquito/pybot")
+
+with open('token.json') as json_file:  
+    data = json.load(json_file) 
+
+
+client.run(data['token'])
